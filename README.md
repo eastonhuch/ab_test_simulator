@@ -41,7 +41,7 @@ Your function must return a dictionary with keys `DECISION` and `ESTIMATED_DIFFE
 Allowed values for `DECISION` are `A`, `B`, or `continue`.
 Make sure to set `DECISION` to either `A` or `B` on the last iteration;
 otherwise, the simulator will display a warning and default to `A`.
-`ESTIMATED_DIFFERENCE` is your method's estimate of the difference between conversion rates (B - A).
+`ESTIMATED_DIFFERENCE` is your method's estimate of the difference between conversion rates (p<sub>B</sub> - p<sub>A</sub>).
 
 You're free to use the functions in the provided files.
 The two that are likely to be most helpful are `get_mme` 
