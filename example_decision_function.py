@@ -16,8 +16,6 @@ PRIORS = (gd.get_mme(BASELINE_CONVERSION_RATE, A_STDDEV),
           gd.get_mme(BASELINE_CONVERSION_RATE, B_STDDEV))
 
 # Now we use those priors to generate some data to test your decision function
-# NOTE: I've provided you with a data file ('sample_data.pkl')
-# so you shouldn't need to run this line
 gd.save_data(PRIORS, MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS, 'sample_data.pkl')
 
 # This as an example decision function that always chooses the B arm
