@@ -19,7 +19,7 @@ PRIORS = (gd.get_mme(BASELINE_CONVERSION_RATE, A_STDDEV),
 gd.save_data(PRIORS, MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS, 'sample_data.pkl')
 
 # This as an example decision function that always chooses the B arm
-def always_B(ALPHA, BETA, MAX_TEST_SIZE, HORIZON_LENGTH):
+def always_B(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     def decision_function(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL):
         return {'DECISION': 'B', 'ESTIMATED_DIFFERENCE': 0.01}
     return decision_function
