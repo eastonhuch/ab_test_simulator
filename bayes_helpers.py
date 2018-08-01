@@ -18,7 +18,7 @@ def sample_posterior(ALPHA_A, BETA_A, ALPHA_B, BETA_B,
     loss_B_better = DIFF * B_BETTER_IDX * N_A
     LOSS_B = np.mean(loss_A_better + loss_B_better)
     
-    result = {'LOSS_A': LOSS_A, 'LOSS_B': LOSS_B, 'P_DIFF': np.mean(DIFF)}
+    result = {'LOSS_A': LOSS_A, 'LOSS_B': LOSS_B, 'P_DIFF': np.mean(DIFF), 'P_WIN':np.mean(DIFF > 0)}
     return result
 
 def generate_training_data(ALPHA_A, BETA_A, ALPHA_B, BETA_B,
