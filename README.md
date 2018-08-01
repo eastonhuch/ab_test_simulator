@@ -5,11 +5,12 @@ This project simulates AB tests with 2 arms and a binary outcome.
 The user can specify his or her own testing rule and validate it against simulated data.
 
 ## Parameter Definitions
-* `ALPHA` and `BETA`: The conversion rates on both arms are drawn from beta distributions (https://en.wikipedia.org/wiki/Beta_distribution). 
-Your test function will know the parameters for the A-arm but not the B-arm.
+* `ALPHA` and `BETA`: The parameters for the beta distribution (see https://en.wikipedia.org/wiki/Beta_distribution)
+from which the conversion rate on the A-arm is drawn.
+Your test function will know these parameters for the A-arm but not the B-arm.
 The mean of the B-arm's distribution is the same as the A-arm's, but the standard deviation is unknown.
 If your method requires specifying a prior distribution for the B-arm,
-you will have to use this information to choose reasonable parameters.
+you must use this information to choose reasonable parameters.
 
 * `MAX_TEST_SIZE`: The maximum number of users that can be in the test.
 
@@ -23,6 +24,10 @@ The horizon length includes users that are in the test.
 * `A_STDDEV` and `B_STDDEV`: The standard deviation of the conversion rate distribution on the A- and B-arms respectively.
 Together with the `BASELINE_CONVERSION_RATE`, you can use these to backsolve
 for `ALPHA` and `BETA` with the `get_mme` function in `generate_data.py`.
+
+* `A_SUCCESS`, `A_FAIL`, `B_SUCCESS`, and `B_FAIL`: The cumulative number of successes (conversions) or failures on the given arm.
+For example, `A_SUCCESS=10` means 
+"at this point in the test, there have been 10 successes on the A-arm."
 
 ## Usage
 Open the file `example_decision_function.py` and replace the function `always_B` with your own decision function,
