@@ -1,6 +1,6 @@
 import pickle
 import numpy as np
-from generate_data import get_mme
+from generate_data import get_mme, read_data
 from evaluation_functions import evaluate_all
 from bayes_helpers import sample_posterior, get_threshold
 
@@ -54,7 +54,5 @@ def expected_conversion_loss(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     return decision_function
 
 DATA_FILE = 'sample_data.pkl'
-with open(DATA_FILE, 'rb') as input:
-    data_dict = pickle.load(input)
-
+data_dict = read_data(DATA_FILE)
 evaluate_all(data_dict, expected_conversion_loss)

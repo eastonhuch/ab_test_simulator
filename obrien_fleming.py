@@ -1,4 +1,5 @@
 import pickle
+from generate_data import read_data
 from evaluation_functions import evaluate_all
 from current_approach import get_Z
 
@@ -36,6 +37,5 @@ def obrien_fleming(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     return decision_function
 
 DATA_FILE = 'sample_data.pkl'
-with open(DATA_FILE, 'rb') as input:
-    data_dict = pickle.load(input)
+data_dict = read_data(DATA_FILE)
 evaluate_all(data_dict, obrien_fleming)

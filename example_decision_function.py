@@ -1,5 +1,5 @@
 import pickle
-import generate_data as gd
+from generate_data import get_mme, save_data, read_data
 from evaluation_functions import evaluate_all
 
 # These are the parameter values that will be used to validate your decision function
@@ -14,13 +14,13 @@ B_STDDEV = 0.02
 NUM_TESTS = 10000
 
 # The conversion rates are drawn from beta distributions with these parameters
-PRIORS = (gd.get_mme(BASELINE_CONVERSION_RATE, A_STDDEV),
-          gd.get_mme(BASELINE_CONVERSION_RATE, B_STDDEV))
+PRIORS = (get_mme(BASELINE_CONVERSION_RATE, A_STDDEV),
+          get_mme(BASELINE_CONVERSION_RATE, B_STDDEV))
 
 # Now we use those priors to generate some data to test your decision function
 # NOTE: I've provided you with a data file ('sample_data.pkl')
 # so you shouldn't need to run this line
-gd.save_data(PRIORS, MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS, 'sample_data.pkl')
+save_data(PRIORS, MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS, 'sample_data.pkl')
 
 # This as an example decision function that always chooses the B arm
 def always_B(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
@@ -30,6 +30,5 @@ def always_B(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
 
 # Obtain average loss for your function
 DATA_FILE = 'sample_data.pkl'
-with open(DATA_FILE, 'rb') as input:
-    data_dict = pickle.load(input)
+data_dict = read_data(DATA_FILE)
 evaluate_all(data_dict, always_B)
