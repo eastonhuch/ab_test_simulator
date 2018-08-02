@@ -26,7 +26,7 @@ def most_likely(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
 
     return decision_function
 
-DATA_FILE = 'test_data.pkl'
+DATA_FILE = 'sample_data.pkl'
 with open(DATA_FILE, 'rb') as input:
     data_dict = pickle.load(input)
 evaluate_all(data_dict, most_likely)
