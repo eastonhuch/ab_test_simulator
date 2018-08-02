@@ -1,6 +1,6 @@
 import pickle
-import evaluation_functions
-import current_approach
+from evaluation_functions import evaluate_all
+from current_approach import get_Z
 
 def obrien_fleming(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     THRESHOLDS = [6.9913, 4.8646, 3.9295, 3.367 ,2.9893, 2.7148, 2.504, 2.3358, 2.1975, 2.0811]
@@ -11,7 +11,7 @@ def obrien_fleming(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
         AT_CHECKPOINT = N in CHECKPOINTS 
         LAST_SAMPLE = N >= MAX_TEST_SIZE
         if LAST_SAMPLE:
-            TMP = current_approach.get_Z(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL)
+            TMP = get_Z(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL)
             Z = TMP[0]
             decision_dict['ESTIMATED_DIFFERENCE'] = TMP[1]
             if Z > 0:
@@ -23,7 +23,7 @@ def obrien_fleming(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
                 if N == CHECKPOINTS[i]:
                     break
             T = THRESHOLDS[i]
-            TMP = current_approach.get_Z(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL)
+            TMP = get_Z(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL)
             Z = TMP[0]
             PAST_THRESHOLD = abs(Z) > T
             if PAST_THRESHOLD:
@@ -38,4 +38,4 @@ def obrien_fleming(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
 DATA_FILE = 'test_data.pkl'
 with open(DATA_FILE, 'rb') as input:
     data_dict = pickle.load(input)
-evaluation_functions.evaluate_all(data_dict, obrien_fleming)
+evaluate_all(data_dict, obrien_fleming)

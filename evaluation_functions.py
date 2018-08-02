@@ -65,4 +65,5 @@ def evaluate_all(D, create_decision_function):
                    'Average number of samples': AVG_LENGTH,
                    'Estimate bias': BIAS, 'Estimate MSE': MSE,
                    'TP': TP, 'FP': FP, 'TN': TN, 'FN': FN}
+    print(result_dict)
     return result_dict

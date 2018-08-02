@@ -1,13 +1,13 @@
-import current_approach
-import evaluation_functions
 import pickle
+from evaluation_functions import evaluate_all
+from current_approach import power_calculation
 
 def most_likely(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
     P = ALPHA / (ALPHA + BETA) # Baseline conversion rate
     D = 0.01 # Minimum detectable effect
     TYPE_1 = 0.05
     TYPE_2  = 0.2
-    N = current_approach.power_calculation(TYPE_1, TYPE_2, P, D)
+    N = power_calculation(TYPE_1, TYPE_2, P, D)
     if N < max_test_size:
         max_test_size = N
     
@@ -29,4 +29,4 @@ def most_likely(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
 DATA_FILE = 'test_data.pkl'
 with open(DATA_FILE, 'rb') as input:
     data_dict = pickle.load(input)
-evaluation_functions.evaluate_all(data_dict, most_likely)
+evaluate_all(data_dict, most_likely)

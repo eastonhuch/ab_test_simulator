@@ -1,6 +1,6 @@
-from scipy.stats import norm
-import evaluation_functions
 import pickle
+from scipy.stats import norm
+from evaluation_functions import evaluate_all
 
 def power_calculation(TYPE_1, TYPE_2, P, D):
     Z_A = norm.ppf(1 - TYPE_1/2.0)
@@ -43,7 +43,7 @@ def current_approach(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
 
     return decision_function
 
-DATA_FILE = 'test_data.pkl'
+DATA_FILE = 'sample_data.pkl'
 with open(DATA_FILE, 'rb') as input:
     data_dict = pickle.load(input)
-evaluation_functions.evaluate_all(data_dict, current_approach)
+evaluate_all(data_dict, current_approach)

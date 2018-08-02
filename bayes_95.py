@@ -1,8 +1,8 @@
 import pickle
-import evaluation_functions
 import numpy as np
-import bayes_helpers as b
-import generate_data as gd
+from evaluation_functions import evaluate_all
+from generate_data import get_mme
+from bayes_helpers import sample_posterior
 
 def bayes_95(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     # Number of posterior samples drawn per arm
@@ -18,7 +18,7 @@ def bayes_95(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     
     B_MEAN = A_MEAN
     B_STDDEV = A_STDDEV * 10
-    B_PRIORS = gd.get_mme(B_MEAN, B_STDDEV)
+    B_PRIORS = get_mme(B_MEAN, B_STDDEV)
     
     print('ALPHA_A: ' + str(ALPHA))
     print('BETA_A: ' + str(BETA))
@@ -35,7 +35,7 @@ def bayes_95(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
         N_A = A_SUCCESS + A_FAIL
         N_B = B_SUCCESS + B_FAIL
         N_BOTH = N_A + N_B
-        POSTERIOR = b.sample_posterior(A_ALPHA_POST, A_BETA_POST, 
+        POSTERIOR = sample_posterior(A_ALPHA_POST, A_BETA_POST, 
                                        B_ALPHA_POST, B_BETA_POST,
                                        N_A, N_B, HORIZON_LENGTH - N_BOTH,
                                        N_SAMPLES)
@@ -50,8 +50,8 @@ def bayes_95(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
 
     return decision_function
 
-DATA_FILE = 'test_data.pkl'
+DATA_FILE = 'sample_data.pkl'
 with open(DATA_FILE, 'rb') as input:
     data_dict = pickle.load(input)
 
-evaluation_functions.evaluate_all(data_dict, bayes_95)
+evaluate_all(data_dict, bayes_95)

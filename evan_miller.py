@@ -1,6 +1,6 @@
 import pickle
 import numpy as np
-import evaluation_functions
+from evaluation_functions import evaluate_all
 
 # This one is designed to control false positives
 def evan_miller(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
@@ -51,8 +51,10 @@ def evan_miller_most_likely(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     return decision_function
 
 # Obtain average loss for your function
-DATA_FILE = 'test_data.pkl'
+DATA_FILE = 'sample_data.pkl'
 with open(DATA_FILE, 'rb') as input:
     data_dict = pickle.load(input)
-evaluation_functions.evaluate_all(data_dict, evan_miller)
-evaluation_functions.evaluate_all(data_dict, evan_miller_most_likely)
+
+# Test both of them
+evaluate_all(data_dict, evan_miller)
+evaluate_all(data_dict, evan_miller_most_likely)
