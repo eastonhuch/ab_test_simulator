@@ -5,7 +5,7 @@ from bayes_helpers import sample_posterior, get_threshold
 
 def expected_conversion_loss(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     JUMP_ = 100
-    NUM_TESTS = 1000 # Used to choose optimal threshold
+    NUM_TESTS = 2000 # Used to choose optimal threshold
     N_SAMPLES = 500 # Number of posterior samples drawn per arm
     A_MEAN = ALPHA / (ALPHA + BETA)
     A_VAR = (ALPHA * BETA) / ((ALPHA + BETA)**2) / (ALPHA + BETA + 1)

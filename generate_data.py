@@ -63,6 +63,7 @@ def save_data(PRIORS, MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS, PATH='./data.pkl
 
     # Maximum number of bytes pickle can write without a problem
     # See https://stackoverflow.com/questions/31468117/python-3-can-pickle-handle-byte-objects-larger-than-4gb
+    # Even this solution gives me issues with large files
     MAX_BYTES = 2**31-1
     data_out = pickle.dumps(out_dict)
     with open(PATH, 'wb') as f:
