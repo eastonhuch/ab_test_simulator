@@ -33,9 +33,6 @@ For example, `A_SUCCESS=10` means
 Open the file `example_decision_function.py` and replace the function `always_B` with your own decision function,
 taking care to replace the reference to `always_B` in the last line with your own function.
 Then run the whole file to see how your rule performs on some simulated data.
-You can also use the file `current_approach.py` 
-(which contains the classic fixed-sample size frequentist testing procedure)
-as a guide in writing your test function.
 
 Notice that test rules are functions that return functions 
 (i.e., the inner function--the function that is actually applied to the data--is a closure).
@@ -49,9 +46,13 @@ otherwise, the simulator will display a warning and default to `A`.
 `ESTIMATED_DIFFERENCE` is your method's estimate of the difference between conversion rates (p<sub>B</sub> - p<sub>A</sub>).
 
 You're free to use the functions in the provided files.
-The two that are likely to be most helpful are `get_mme` 
-(a function that backsolves for `ALPHA` and `BETA` given a `MEAN` and a `STDDEV`)
-and `generate_data`, both of which can be found in `generate_data.py`.
+Of particular interest is the `get_mme` function, 
+a function that backsolves for `ALPHA` and `BETA` given a `MEAN` and a `STDDEV`.
+You may also want to peruse the helper functions used by other test rules.
+For example, `current_approach.py` contains the functions `power_calculation` and `get_Z`.
+
+When you're finished with your function, put it in it's own file and create a pull request.
+Alternatively, you could just send your file to Easton, and he will add it for you.
 
 ## Issues
 This project is still under development, so please report any bugs (or other shortcomings)
