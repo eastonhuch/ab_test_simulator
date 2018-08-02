@@ -12,11 +12,14 @@ from obrien_fleming import obrien_fleming
 from bayes_p import bayes_p
 from current_approach import current_approach
 
-
+bayes_90 = bayes_p(0.9)
+bayes_95 = bayes_p(0.95)
+bayes_99 = bayes_p(0.99)
 
 function_list = [evan_miller, evan_miller_most_likely, 
                 expected_conversion_loss, most_likely, naive_peeking, 
-                obrien_fleming, bayes_95, current_approach]
+                obrien_fleming, bayes_90, bayes_95,
+                bayes_99, current_approach]
 
 results = []
 DATA_FILE = 'test_data.pkl'
