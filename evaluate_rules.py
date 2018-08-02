@@ -29,7 +29,7 @@ RESULTS_FILE = 'results.pkl'
 data_dict = read_data(DATA_FILE)
 
 for i, f in enumerate(FUNCTION_LIST):
-    print('Evaluting decision function ' + str(i + 1))
+    print('Evaluting decision function ' + str(i + 1) + ': ' + f.__name__)
     d = evaluate_all(data_dict, f)
     d['Rule name'] = f.__name__
     results.append(d)
