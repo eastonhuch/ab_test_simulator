@@ -50,8 +50,8 @@ def evan_miller_most_likely(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     
     return decision_function
 
-# Test both of them
-DATA_FILE = 'sample_data.pkl'
-data_dict = read_data(DATA_FILE)
-evaluate_all(data_dict, evan_miller)
-evaluate_all(data_dict, evan_miller_most_likely)
+# For testing
+#DATA_FILE = 'sample_data.pkl'
+#data_dict = read_data(DATA_FILE)
+#evaluate_all(data_dict, evan_miller)
+#evaluate_all(data_dict, evan_miller_most_likely)

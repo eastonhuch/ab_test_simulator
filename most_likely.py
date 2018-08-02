@@ -26,6 +26,7 @@ def most_likely(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
 
     return decision_function
 
-DATA_FILE = 'sample_data.pkl'
-data_dict = read_data(DATA_FILE)
-evaluate_all(data_dict, most_likely)
+# For testing
+#DATA_FILE = 'sample_data.pkl'
+#data_dict = read_data(DATA_FILE)
+#evaluate_all(data_dict, most_likely)

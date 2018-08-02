@@ -49,6 +49,7 @@ def bayes_95(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
 
     return decision_function
 
-DATA_FILE = 'sample_data.pkl'
-data_dict = read_data(DATA_FILE)
-evaluate_all(data_dict, bayes_95)
+# For testing
+#DATA_FILE = 'sample_data.pkl'
+#data_dict = read_data(DATA_FILE)
+#evaluate_all(data_dict, bayes_95)

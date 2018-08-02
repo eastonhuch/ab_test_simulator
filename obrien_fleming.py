@@ -35,6 +35,7 @@ def obrien_fleming(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
         return decision_dict
     return decision_function
 
-DATA_FILE = 'sample_data.pkl'
-data_dict = read_data(DATA_FILE)
-evaluate_all(data_dict, obrien_fleming)
+# For testing
+#DATA_FILE = 'sample_data.pkl'
+#data_dict = read_data(DATA_FILE)
+#evaluate_all(data_dict, obrien_fleming)
