@@ -1,4 +1,3 @@
-import pickle
 from evaluation_functions import evaluate_all
 from generate_data import read_data
 from current_approach import power_calculation

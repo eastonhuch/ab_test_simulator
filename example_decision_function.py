@@ -1,4 +1,3 @@
-import pickle
 from generate_data import get_mme, save_data, read_data
 from evaluation_functions import evaluate_all
 
@@ -11,7 +10,7 @@ A_STDDEV = 0.002
 B_STDDEV = 0.02
 # This one could potentially change, but it doesn't affect your rule's performance
 # A higher number of tests will give greater precision around our estimates
-NUM_TESTS = 10000
+NUM_TESTS = 8000
 
 # The conversion rates are drawn from beta distributions with these parameters
 PRIORS = (get_mme(BASELINE_CONVERSION_RATE, A_STDDEV),

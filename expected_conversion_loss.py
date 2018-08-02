@@ -1,4 +1,3 @@
-import pickle
 import numpy as np
 from generate_data import get_mme, read_data
 from evaluation_functions import evaluate_all

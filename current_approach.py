@@ -1,4 +1,3 @@
-import pickle
 from scipy.stats import norm
 from generate_data import read_data
 from evaluation_functions import evaluate_all

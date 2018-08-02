@@ -1,4 +1,3 @@
-import pickle
 from generate_data import read_data
 from evaluation_functions import evaluate_all
 from current_approach import get_Z
