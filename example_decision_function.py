@@ -18,7 +18,7 @@ PRIORS = (get_mme(BASELINE_CONVERSION_RATE, A_STDDEV),
 
 # Now we use those priors to generate some data to test your decision function
 # This line creates your sample data
-save_data(PRIORS, MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS, 'sample_data.pkl')
+#save_data(PRIORS, MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS, 'sample_data.pkl')
 
 # This as an example decision function that always chooses the B arm
 def always_B(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
@@ -27,6 +27,6 @@ def always_B(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     return decision_function
 
 # Obtain average loss for your function
-DATA_FILE = 'sample_data.pkl'
+DATA_FILE = 'small_data.pkl'
 data_dict = read_data(DATA_FILE)
 evaluate_all(data_dict, always_B)
