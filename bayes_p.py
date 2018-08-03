@@ -34,7 +34,7 @@ def bayes_p(P_THRESHOLD):
             N_BOTH = N_A + N_B
             if N_BOTH % JUMP == 0 or N_BOTH > MAX_TEST_SIZE:
                 A_ALPHA_POST = ALPHA + A_SUCCESS
-                A_BETA_POST  = BETA  + B_FAIL
+                A_BETA_POST  = BETA  + A_FAIL
                 B_ALPHA_POST = B_PRIORS[0] + B_SUCCESS
                 B_BETA_POST  = B_PRIORS[1] + B_FAIL
                 POSTERIOR = sample_posterior(A_ALPHA_POST, A_BETA_POST, 
