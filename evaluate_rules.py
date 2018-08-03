@@ -5,7 +5,7 @@ from evaluation_functions import evaluate_all
 
 # These are the functions we will be testing
 from evan_miller import evan_miller, evan_miller_most_likely
-from expected_conversion_loss import expected_conversion_loss
+from loss_diff import loss_diff
 from most_likely import most_likely
 from naive_peeking import naive_peeking
 from obrien_fleming import obrien_fleming
@@ -20,7 +20,7 @@ for p in BAYES_PROBS:
     BAYES_P_LIST.append(b)
 
 FUNCTION_LIST = [evan_miller, evan_miller_most_likely, 
-                expected_conversion_loss, most_likely, naive_peeking, 
+                loss_diff, most_likely, naive_peeking, 
                 current_approach, obrien_fleming] + BAYES_P_LIST
 
 results = []
