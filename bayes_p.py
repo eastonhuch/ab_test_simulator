@@ -3,7 +3,7 @@ from evaluation_functions import evaluate_all
 from generate_data import get_mme, read_data
 from bayes_helpers import sample_posterior
 
-def bayes_p(P_THRESHOLD):
+def bayes_p(P_THRESHOLD, HARD=False):
     def bayes_inner(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
         N_SAMPLES = 500 # Number of posterior samples drawn per arm
         JUMP = 100 # Evaluate probability every JUMP samples
@@ -41,12 +41,20 @@ def bayes_p(P_THRESHOLD):
                                             B_ALPHA_POST, B_BETA_POST,
                                             N_A, N_B, HORIZON_LENGTH - N_BOTH,
                                             N_SAMPLES)
-                if POSTERIOR['P_WIN'] > P_THRESHOLD_ or POSTERIOR['P_WIN'] < (1 - P_THRESHOLD_) or N_BOTH >= MAX_TEST_SIZE:
-                    decision_dict['ESTIMATED_DIFFERENCE'] = POSTERIOR['P_DIFF'] 
-                    if POSTERIOR['P_WIN'] > 0.5: # Loss for B is greater than loss for A
+                if HARD:
+                    if POSTERIOR['P_WIN'] > P_THRESHOLD_:
                         decision_dict['DECISION'] = 'B'
-                    else:
+                        decision_dict['ESTIMATED_DIFFERENCE'] = POSTERIOR['P_DIFF'] 
+                    elif POSTERIOR['P_WIN'] < (1 - P_THRESHOLD_) or N_BOTH >= MAX_TEST_SIZE:
                         decision_dict['DECISION'] = 'A'
+                        decision_dict['ESTIMATED_DIFFERENCE'] = POSTERIOR['P_DIFF'] 
+                else:
+                    if POSTERIOR['P_WIN'] > P_THRESHOLD_ or POSTERIOR['P_WIN'] < (1 - P_THRESHOLD_) or N_BOTH >= MAX_TEST_SIZE:
+                        decision_dict['ESTIMATED_DIFFERENCE'] = POSTERIOR['P_DIFF'] 
+                        if POSTERIOR['P_WIN'] > 0.5: # Loss for B is greater than loss for A
+                            decision_dict['DECISION'] = 'B'
+                        else:
+                            decision_dict['DECISION'] = 'A'
             return decision_dict
         return decision_function
     return bayes_inner

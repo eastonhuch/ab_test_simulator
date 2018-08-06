@@ -6,8 +6,9 @@ from evaluation_functions import evaluate_all
 # These are the functions we will be testing
 from evan_miller import evan_miller, evan_miller_most_likely
 from loss_diff import loss_diff
+from loss_ratio import loss_ratio
 from most_likely import most_likely
-from naive_peeking import naive_peeking
+from naive_peeking import peek_1, peek_100, peek_for_loss
 from obrien_fleming import obrien_fleming
 from bayes_p import bayes_p
 from current_approach import current_approach
@@ -18,9 +19,12 @@ for p in BAYES_PROBS:
     b = bayes_p(p)
     b.__name__ = 'bayes_' + str(int(p * 100))
     BAYES_P_LIST.append(b)
+    b = bayes_p(p, True)
+    b.__name__ = 'bayes_' + str(int(p * 100)) + '_hard'
+    BAYES_P_LIST.append(b)
 
-FUNCTION_LIST = [evan_miller, evan_miller_most_likely, 
-                loss_diff, most_likely, naive_peeking, 
+FUNCTION_LIST = [evan_miller, evan_miller_most_likely, loss_diff, loss_ratio,
+                most_likely, peek_1, peek_100, peek_for_loss,
                 current_approach, obrien_fleming] + BAYES_P_LIST
 
 results = []

@@ -23,7 +23,7 @@ def sample_posterior(ALPHA_A, BETA_A, ALPHA_B, BETA_B,
 
 def generate_training_data(ALPHA_A, BETA_A, ALPHA_B, BETA_B,
                            MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS,
-                           N_SAMPLES=500, PROPORTION_IN_B=0.5, JUMP=100):
+                           N_SAMPLES=500, PROPORTION_IN_B=0.5, JUMP=100, RATIO=False):
     print('Generating training data')
     ROWS_PER_TEST = int(MAX_TEST_SIZE / JUMP) # Make sure they're evenly divisible
     data = np.zeros((NUM_TESTS, ROWS_PER_TEST, 7))
@@ -61,18 +61,18 @@ def generate_training_data(ALPHA_A, BETA_A, ALPHA_B, BETA_B,
                                          ALPHA_B + curr[3], BETA_B + curr[4],
                                          curr[0] + curr[1], curr[3] + curr[4],
                                          n_remaining, N_SAMPLES)
-            curr[6] = posterior['LOSS_B'] - posterior['LOSS_A']
+            curr[6] = posterior['LOSS_B'] / posterior['LOSS_A'] if RATIO else posterior['LOSS_B'] - posterior['LOSS_A']
             data[i][j] = curr
     print('Finished')
     return data
 
-def get_threshold(ALPHA_A, BETA_A, ALPHA_B, BETA_B, MAX_TEST_SIZE, 
-                  HORIZON_LENGTH, NUM_TESTS, MIN_THRESHOLD, MAX_THRESHOLD,
-                  NUM_THRESHOLDS, N_SAMPLES=500, PROPORTION_IN_B=0.5, JUMP=100):
+def get_threshold(ALPHA_A, BETA_A, ALPHA_B, BETA_B, MAX_TEST_SIZE, HORIZON_LENGTH,
+                  NUM_TESTS, MIN_THRESHOLD, MAX_THRESHOLD, NUM_THRESHOLDS, N_SAMPLES=500,
+                  PROPORTION_IN_B=0.5, JUMP=100, RATIO=False):
     
     DATA = generate_training_data(ALPHA_A, BETA_A, ALPHA_B, BETA_B,
                                   MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS,
-                                  N_SAMPLES, PROPORTION_IN_B, JUMP)
+                                  N_SAMPLES, PROPORTION_IN_B, JUMP, RATIO)
     THRESHOLDS = np.linspace(MIN_THRESHOLD, MAX_THRESHOLD, NUM_THRESHOLDS)
 
     average_loss = []
@@ -82,7 +82,11 @@ def get_threshold(ALPHA_A, BETA_A, ALPHA_B, BETA_B, MAX_TEST_SIZE,
         total_loss = 0
         for d in DATA:
             for i, r in enumerate(d):
-                if abs(r[6]) > t or i >= (ROWS_PER_TEST - 1):
+                if RATIO:
+                    if r[6] > t or r[6] < 1/t:
+                        loss = r[2] if r[6] > 1 else r[5]
+                        total_loss += loss
+                elif abs(r[6]) > t or i >= (ROWS_PER_TEST - 1):
                     loss = r[2] if r[6] > 0 else r[5]
                     total_loss += loss
                     break

@@ -3,7 +3,7 @@ from generate_data import get_mme, read_data
 from evaluation_functions import evaluate_all
 from bayes_helpers import sample_posterior, get_threshold
 
-def loss_diff(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
+def loss_ratio(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     JUMP_ = 100
     NUM_TESTS = 4000 # Used to choose optimal threshold
     N_SAMPLES = 500 # Number of posterior samples drawn per arm
@@ -22,8 +22,7 @@ def loss_diff(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
 
     THRESHOLD = get_threshold(ALPHA, BETA, B_PRIORS[0], B_PRIORS[1],
                               MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS,
-                              0, HORIZON_LENGTH * A_STDDEV * 25, 51,
-                              N_SAMPLES, JUMP=JUMP_)
+                              2, 100, 99, N_SAMPLES, JUMP=JUMP_, RATIO=True)
 
     def decision_function(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL):
         decision_dict = {'DECISION': 'continue', 'ESTIMATED_DIFFERENCE': None}
@@ -39,10 +38,10 @@ def loss_diff(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
                                         B_ALPHA_POST, B_BETA_POST,
                                         N_A, N_B, HORIZON_LENGTH - N_BOTH,
                                         N_SAMPLES)
-            LOSS_DIFF = POSTERIOR['LOSS_B'] - POSTERIOR['LOSS_A']
-            if abs(LOSS_DIFF) > THRESHOLD or N_BOTH >= MAX_TEST_SIZE:
+            LOSS_RATIO = POSTERIOR['LOSS_B'] / POSTERIOR['LOSS_A']
+            if LOSS_RATIO > THRESHOLD or LOSS_RATIO < 1/THRESHOLD or N_BOTH >= MAX_TEST_SIZE:
                 decision_dict['ESTIMATED_DIFFERENCE'] = POSTERIOR['P_DIFF'] 
-                if LOSS_DIFF > 0: # Loss for B is greater than loss for A
+                if LOSS_RATIO > 1: # Loss for B is greater than loss for A
                     decision_dict['DECISION'] = 'A'
                 else:
                     decision_dict['DECISION'] = 'B'
@@ -51,6 +50,6 @@ def loss_diff(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     return decision_function
 
 # for testing
-#DATA_FILE = 'sample_data.pkl'
-#data_dict = read_data(DATA_FILE)
-#evaluate_all(data_dict, loss_diff)
+DATA_FILE = 'test_data.pkl'
+data_dict = read_data(DATA_FILE)
+evaluate_all(data_dict, loss_ratio)

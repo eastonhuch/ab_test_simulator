@@ -23,7 +23,7 @@ def expected_conversion_loss(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
     THRESHOLD = get_threshold(ALPHA, BETA, B_PRIORS[0], B_PRIORS[1],
                               MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS,
                               0, HORIZON_LENGTH * A_STDDEV * 25, 51,
-                              N_SAMPLES, JUMP=JUMP_)
+                              N_SAMPLES, JUMP=JUMP_, )
 
     def decision_function(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL):
         decision_dict = {'DECISION': 'continue', 'ESTIMATED_DIFFERENCE': None}
