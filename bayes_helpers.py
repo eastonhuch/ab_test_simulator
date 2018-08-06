@@ -83,9 +83,10 @@ def get_threshold(ALPHA_A, BETA_A, ALPHA_B, BETA_B, MAX_TEST_SIZE, HORIZON_LENGT
         for d in DATA:
             for i, r in enumerate(d):
                 if RATIO:
-                    if r[6] > t or r[6] < 1/t:
+                    if r[6] > t or r[6] < 1/t or i >= (ROWS_PER_TEST - 1):
                         loss = r[2] if r[6] > 1 else r[5]
                         total_loss += loss
+                        break
                 elif abs(r[6]) > t or i >= (ROWS_PER_TEST - 1):
                     loss = r[2] if r[6] > 0 else r[5]
                     total_loss += loss

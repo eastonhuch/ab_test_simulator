@@ -22,7 +22,7 @@ def loss_ratio(ALPHA, BETA, HORIZON_LENGTH, MAX_TEST_SIZE):
 
     THRESHOLD = get_threshold(ALPHA, BETA, B_PRIORS[0], B_PRIORS[1],
                               MAX_TEST_SIZE, HORIZON_LENGTH, NUM_TESTS,
-                              2, 100, 99, N_SAMPLES, JUMP=JUMP_, RATIO=True)
+                              2, 200, 100, N_SAMPLES, JUMP=JUMP_, RATIO=True)
 
     def decision_function(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL):
         decision_dict = {'DECISION': 'continue', 'ESTIMATED_DIFFERENCE': None}
