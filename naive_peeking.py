@@ -27,7 +27,7 @@ def peek_1(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
         elif N >= MIN_SAMPLES:
             TMP = get_Z(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL)
             Z = TMP[0]
-            P_VALUE = (1 - norm.cdf(Z)) * 2
+            P_VALUE = (1 - norm.cdf(abs(Z))) * 2
             if P_VALUE < TYPE_1:
                 decision_dict['ESTIMATED_DIFFERENCE'] = TMP[1]
                 if Z > 0:
@@ -61,12 +61,13 @@ def peek_100(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
         elif N % PEEK == 0:
             TMP = get_Z(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL)
             Z = TMP[0]
-            P_VALUE = (1 - norm.cdf(Z)) * 2
+            P_VALUE = (1 - norm.cdf(abs(Z))) * 2
             if P_VALUE < TYPE_1:
                 decision_dict['ESTIMATED_DIFFERENCE'] = TMP[1]
                 if Z > 0:
                     decision_dict['DECISION'] = 'B'
                 else:
+                    print('A')
                     decision_dict['DECISION'] = 'A'
         return decision_dict
     return decision_function
@@ -96,7 +97,7 @@ def peek_for_loss(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
         elif N % PEEK == 0:
             TMP = get_Z(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL)
             Z = TMP[0]
-            P_VALUE = (1 - norm.cdf(Z)) * 2
+            P_VALUE = (1 - norm.cdf(abs(Z))) * 2
             if P_VALUE < TYPE_1 and Z > 0:
                 decision_dict['ESTIMATED_DIFFERENCE'] = TMP[1]
                 decision_dict['DECISION'] = 'B'
@@ -104,7 +105,7 @@ def peek_for_loss(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
     return decision_function
 
 # For testing
-#DATA_FILE = 'small_data.pkl'
+#DATA_FILE = 'test_data.pkl'
 #data_dict = read_data(DATA_FILE)
 #evaluate_all(data_dict, peek_1)
 #evaluate_all(data_dict, peek_100)

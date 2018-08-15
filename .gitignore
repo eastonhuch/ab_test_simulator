@@ -1,0 +1,14 @@
+sample_data.pkl
+small_data.pkl
+training_data.pkl
+test_data.pkl
+results.pkl
+secret_params.py
+dumb_rules.py
+perfect_priors.py
+evaluate_perfect_priors.py
+informative_priors.py
+evaluate_informative_priors.py
+results_informative_priors.csv
+results_perfect_priors.csv
+__pycache__

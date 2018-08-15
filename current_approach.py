@@ -33,7 +33,7 @@ def current_approach(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
         if A_SUCCESS + A_FAIL + B_SUCCESS + B_FAIL >= max_test_size:
             TMP = get_Z(A_SUCCESS, A_FAIL, B_SUCCESS, B_FAIL)
             Z = TMP[0]
-            P_VALUE = (1 - norm.cdf(Z)) * 2
+            P_VALUE = (1 - norm.cdf(abs(Z))) * 2
             if P_VALUE < TYPE_1 and Z > 0:
                 decision_dict['DECISION'] = 'B'
             else:
