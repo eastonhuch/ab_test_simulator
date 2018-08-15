@@ -67,7 +67,6 @@ def peek_100(ALPHA, BETA, HORIZON_LENGTH, max_test_size):
                 if Z > 0:
                     decision_dict['DECISION'] = 'B'
                 else:
-                    print('A')
                     decision_dict['DECISION'] = 'A'
         return decision_dict
     return decision_function
